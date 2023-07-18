@@ -46,7 +46,7 @@ function timeFormat(time) {
   return time;
 };
 
-
+// Last 30 days of all 1.0 Earthquakes
 let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson";
 d3.json(url).then(function(response) {
 
@@ -61,12 +61,12 @@ d3.json(url).then(function(response) {
     let magnitude = features[i].properties.mag;
     let properties = features[i].properties;
     if (location) {
-      console.log("location", location);
+      // console.log("location", location);
       let coordinates = [location.coordinates[1], location.coordinates[0]]
       let depth = location.coordinates[2];
-      console.log("coordinates", coordinates)
-      console.log("depth", depth);
-      console.log("magnitude", magnitude);
+      // console.log("coordinates", coordinates)
+      // console.log("depth", depth);
+      // console.log("magnitude", magnitude);
       L.circle(coordinates, {
             fillOpacity: .75,
             color: "black",
