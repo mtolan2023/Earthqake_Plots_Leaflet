@@ -9,8 +9,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
 
-
-// https://www.schemecolor.com/red-orange-green-gradient.php
+// Create a color array for depths
 var color1 = "#69B34C";
 var color2 = "#ACB334";
 var color3 = "#FAB733";
@@ -35,7 +34,6 @@ function depthColor(depth) {
   };
 
 // Functions for date/time formatting
-// https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
 function dateFormat(time) {
   var date = new Date(time).toLocaleDateString("en-US")
   return date; 
@@ -52,16 +50,12 @@ d3.json(url).then(function(response) {
 
   console.log(response);
   features = response.features;
-  
-
-  
 
   for (let i = 0; i < features.length; i++) {
     let location = features[i].geometry;
     let magnitude = features[i].properties.mag;
     let properties = features[i].properties;
     if (location) {
-      // console.log("location", location);
       let coordinates = [location.coordinates[1], location.coordinates[0]]
       let depth = location.coordinates[2];
       // console.log("coordinates", coordinates)
@@ -72,8 +66,9 @@ d3.json(url).then(function(response) {
             color: "black",
             weight: 1,
             fillColor: depthColor(depth),
+            // Multiply Magnitudes so that they register on map
             radius: (magnitude * 20000)
-          }).bindPopup(`<h1>${properties.title}</h1> <h3>Type: ${properties.type}</h3> 
+          }).bindPopup(`<h1>${properties.title}</h1> <h3>Depth: ${depth}</h3> 
             <hr> <h3>Coordinates: ${coordinates}</h3> 
             <hr> <h3>Date: ${dateFormat(properties.time)}</h3> 
             <h3>Time: ${timeFormat(properties.time)}</h3>`).addTo(myMap);
@@ -83,8 +78,6 @@ d3.json(url).then(function(response) {
   };
 
 // Legend
-// https://codepen.io/haakseth/pen/KQbjdO
-
 var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(myMap) {
