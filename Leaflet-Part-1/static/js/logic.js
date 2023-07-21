@@ -9,8 +9,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
 
-
-// https://www.schemecolor.com/red-orange-green-gradient.php
+// Create a color array for depths
 var color1 = "#69B34C";
 var color2 = "#ACB334";
 var color3 = "#FAB733";
@@ -35,7 +34,6 @@ function depthColor(depth) {
   };
 
 // Functions for date/time formatting
-// https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
 function dateFormat(time) {
   var date = new Date(time).toLocaleDateString("en-US")
   return date; 
@@ -46,22 +44,18 @@ function timeFormat(time) {
   return time;
 };
 
-
+// Last 30 days of all 1.0 Earthquakes
 let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_month.geojson";
 d3.json(url).then(function(response) {
 
-  console.log("Earthquake Data", response);
+  console.log(response);
   features = response.features;
-  
-
-  
 
   for (let i = 0; i < features.length; i++) {
     let location = features[i].geometry;
     let magnitude = features[i].properties.mag;
     let properties = features[i].properties;
     if (location) {
-      // console.log("location", location);
       let coordinates = [location.coordinates[1], location.coordinates[0]]
       let depth = location.coordinates[2];
       // console.log("coordinates", coordinates)
@@ -72,8 +66,9 @@ d3.json(url).then(function(response) {
             color: "black",
             weight: 1,
             fillColor: depthColor(depth),
+            // Multiply Magnitudes so that they register on map
             radius: (magnitude * 20000)
-          }).bindPopup(`<h1>${properties.title}</h1> <h3>Type: ${properties.type}</h3> 
+          }).bindPopup(`<h1>${properties.title}</h1> <h3>Depth: ${depth} km</h3> 
             <hr> <h3>Coordinates: ${coordinates}</h3> 
             <hr> <h3>Date: ${dateFormat(properties.time)}</h3> 
             <h3>Time: ${timeFormat(properties.time)}</h3>`).addTo(myMap);
@@ -83,13 +78,11 @@ d3.json(url).then(function(response) {
   };
 
 // Legend
-// https://codepen.io/haakseth/pen/KQbjdO
-
 var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(myMap) {
   var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += "<h4>Earthquake Depth</h4>";
+  div.innerHTML += "<h4>Earthquake Depth (km)</h4>";
   div.innerHTML += `<i style="background: ${color1}"></i><span>-10-10</span><br>`;
   div.innerHTML += `<i style="background: ${color2}"></i><span>10-30</span><br>`;
   div.innerHTML += `<i style="background: ${color3}"></i><span>30-50</span><br>`;
@@ -105,32 +98,4 @@ legend.onAdd = function(myMap) {
 
 legend.addTo(myMap);
 
-});
-
-
-d3.json("data/PB2002_plates.json").then(function(data) {
-  console.log("Plate Data", data);
-
-  plates = data.features.feature.geometry
-
-  for (let i = 0; i < data.features.length; i++) {
-
-    let coordinates = plates[i].coordinates
-
-    console.log(coordinates)
-
-  };
-
-
-
-  // L.polygon([
-  //   [45.54, -122.68],
-  //   [45.55, -122.68],
-  //   [45.55, -122.66]
-  // ], {
-  //   color: "yellow",
-  //   fillColor: "yellow",
-  //   fillOpacity: 0.75
-  // }).addTo(myMap);
-  
 });

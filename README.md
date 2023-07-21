@@ -10,3 +10,6 @@ Unix Timestamp to date and time: https://stackoverflow.com/questions/847185/conv
 Color gradient insight:
 https://www.schemecolor.com/red-orange-green-gradient.php
 
+Additional map layers:
+https://leaflet-extras.github.io/leaflet-providers/preview/
+
