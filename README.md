@@ -1,7 +1,5 @@
 # leaflet-challenge
-Module 15 Challenge - Plotting Earthquake data
-
-This repo contains the project files for Part 1 and Part 2 of the Leaflet Challenge:
+Plotting Earthquake data using Leafet
 
 Earthquake data taken from the USGS: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
 
