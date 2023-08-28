@@ -1,5 +1,5 @@
-# leaflet-challenge
-Plotting Earthquake data using Leafet
+
+# Plotting Earthquake data using Leafet
 
 Earthquake data taken from the USGS: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
 
