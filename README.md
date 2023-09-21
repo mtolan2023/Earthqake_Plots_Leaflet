@@ -1,7 +1,7 @@
 
 # Plotting Earthquake data using Leafet
 
-This project uses GEOJSON data to plot earthquakes in the US, using Leaflet to build a map. It makes it apparent where earthquakes are happening the most frequently as well as the depth, intensity and time of each earthquake.
+This project uses GEOJSON data to plot earthquakes in the US, using Leaflet to build a map. It makes it apparent where earthquakes are happening the most frequently as well as the depth, intensity and time of each earthquake. These visualizations make it possible to easily view the locations of highest earthquake frequency and intensity in the US.
 
 Earthquake data taken from the USGS: https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
 
